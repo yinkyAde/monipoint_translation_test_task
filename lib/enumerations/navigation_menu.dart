@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum MapMenu {
+enum NavigationMenu {
   cosyAreas(
     Icons.beenhere_outlined,
     "Cosy areas",
@@ -21,15 +21,15 @@ enum MapMenu {
   final IconData icon;
   final String value;
 
-  const MapMenu(
+  const NavigationMenu(
     this.icon,
     this.value,
   );
 }
 
-extension MapMenuX on MapMenu {
-  bool get isCosyAreas => this == MapMenu.cosyAreas;
-  bool get isPrice => this == MapMenu.price;
-  bool get isInfrastructure => this == MapMenu.infrastructure;
-  bool get isWithoutAnyLayer => this == MapMenu.withoutAnyLayer;
+extension NavigationMenuExtension on NavigationMenu {
+  bool get isCosyAreas => this == NavigationMenu.cosyAreas;
+  bool get isPrice => this == NavigationMenu.price;
+  bool get isInfrastructure => this == NavigationMenu.infrastructure;
+  bool get isWithoutAnyLayer => this == NavigationMenu.withoutAnyLayer;
 }

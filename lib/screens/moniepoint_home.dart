@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:monipoint_translation_test_task/enumerations/navigation_enumeration.dart';
 
-import '../enums/nav_enum.dart';
+import '../constants.dart';
 import '../widgets/custom_nav_item.dart';
 import 'home_screen.dart';
 import 'map_screen.dart';
@@ -9,18 +10,18 @@ class MoniepointHome extends StatefulWidget {
   const MoniepointHome({super.key});
 
   @override
-  State<MoniepointHome> createState() => _MoniepointHomeState();
+  State<MoniepointHome> createState() => MoniepointHomeState();
 }
 
-class _MoniepointHomeState extends State<MoniepointHome>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _animationController;
+class MoniepointHomeState extends State<MoniepointHome> with SingleTickerProviderStateMixin {
 
-  late final Animation<Offset> _slideAnimation;
+  late final AnimationController animationController;
 
-  NavEnum _selectedItem = NavEnum.home;
+  late final Animation<Offset> animationSlider;
 
-  Widget _displayedScreen(NavEnum value) {
+  NavigationEnumeration selectedNavigation = NavigationEnumeration.home;
+
+  Widget showSelectedScreen(NavigationEnumeration value) {
     if (value.isHome) {
       return const HomeScreen();
     }
@@ -30,7 +31,7 @@ class _MoniepointHomeState extends State<MoniepointHome>
     }
 
     return Container(
-      color: const Color(0xffA5957E),
+      color: backgroundColor,
     );
   }
 
@@ -38,15 +39,15 @@ class _MoniepointHomeState extends State<MoniepointHome>
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
+    animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 4),
     );
 
-    _slideAnimation =
+    animationSlider =
         Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.88,
           1.0,
@@ -55,12 +56,12 @@ class _MoniepointHomeState extends State<MoniepointHome>
       ),
     );
 
-    _animationController.forward();
+    animationController.forward();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    animationController.dispose();
 
     super.dispose();
   }
@@ -69,35 +70,35 @@ class _MoniepointHomeState extends State<MoniepointHome>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: _displayedScreen(_selectedItem),
+      body: showSelectedScreen(selectedNavigation),
       bottomNavigationBar: SlideTransition(
-        position: _slideAnimation,
+        position: animationSlider,
         child: Container(
           margin: const EdgeInsets.only(
-            left: 56,
-            bottom: 18,
-            right: 32,
+            left: defaultPadding * 3.5,
+            bottom: defaultPadding + 2.0,
+            right: defaultPadding * 2.0,
           ),
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-          height: 64,
+          padding: const EdgeInsets.symmetric(vertical: defaultPadding / 8.0, horizontal: defaultPadding / 2.0),
+          height: defaultPadding * 4.0,
           decoration: const BoxDecoration(
             color: Color(0xff2B2B2B),
             borderRadius: BorderRadius.all(
-              Radius.circular(50),
+              Radius.circular(50.0),
             ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ...NavEnum.values.map(
+              ...NavigationEnumeration.values.map(
                 (item) => SizedBox(
-                  width: 52,
-                  height: 52,
+                  width: defaultPadding * 3.25,
+                  height: defaultPadding * 3.25,
                   child: CustomNavItem(
                     icon: item.icon,
-                    isActive: item == _selectedItem,
+                    isActive: item == selectedNavigation,
                     onTap: () {
-                      setState(() => _selectedItem = item);
+                      setState(() => selectedNavigation = item);
                     },
                   ),
                 ),

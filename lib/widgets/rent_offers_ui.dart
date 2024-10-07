@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:monipoint_translation_test_task/number_util.dart';
+
+import '../constants.dart';
+import '../utils/number_util.dart';
 
 class RentOffersUi extends StatelessWidget {
   const RentOffersUi({
@@ -13,10 +15,10 @@ class RentOffersUi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        left: 16,
-        top: 16,
-        right: 16,
-        bottom: 48,
+        left: defaultPadding,
+        top: defaultPadding,
+        right: defaultPadding,
+        bottom: defaultPadding * 3.0,
       ),
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -34,11 +36,11 @@ class RentOffersUi extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             "RENT",
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Color(0xffA5957E),
+              color: backgroundColor,
               fontSize: 16,
             ),
           ),
@@ -46,22 +48,22 @@ class RentOffersUi extends StatelessWidget {
             height: 24,
           ),
           Text(
-            NumberUtil.addSpaceTo4DigitNumber(value.toInt()),
-            style: const TextStyle(
+            NumberUtil.numberFormatter(value.toInt()),
+            style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: Color(0xffA5957E),
-              fontSize: 40,
+              color: backgroundColor,
+              fontSize: 40.0,
             ),
           ),
           const SizedBox(
-            height: 2,
+            height: 2.0,
           ),
-          const Text(
+          Text(
             "offers",
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Color(0xffA5957E),
-              fontSize: 16,
+              color: backgroundColor,
+              fontSize: 16.0,
             ),
           ),
         ],

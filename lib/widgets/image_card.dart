@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:monipoint_translation_test_task/constants.dart';
 
 class ImageCard extends StatelessWidget {
   const ImageCard({
     required this.assetPath,
     required this.sliderWidth,
-    this.sliderHeight = 40,
+    this.sliderHeight = 40.0,
     required this.sliderText,
     required this.textOpacity,
     this.sliderTextAlignment = Alignment.centerLeft,
@@ -27,13 +28,13 @@ class ImageCard extends StatelessWidget {
       width: double.infinity,
       height: height,
       padding: const EdgeInsets.only(
-        left: 10,
-        bottom: 10,
-        right: 10,
+        left: defaultPadding - 6.0,
+        bottom: defaultPadding - 6.0,
+        right: defaultPadding - 6.0,
       ),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
-          Radius.circular(32),
+          Radius.circular(32.0),
         ),
         image: DecorationImage(
           image: AssetImage(
@@ -43,13 +44,13 @@ class ImageCard extends StatelessWidget {
         ),
       ),
       child: Container(
-        padding: const EdgeInsets.only(left: 10, top: 2, bottom: 2, right: 2),
+        padding: const EdgeInsets.only(left: 10.0, top: 2.0, bottom: 2.0, right: 2.0),
         width: sliderWidth + sliderHeight,
         height: sliderHeight,
         decoration: BoxDecoration(
-          color: const Color(0xffA5957E).withAlpha(240),
+          color: backgroundColor.withAlpha(240),
           borderRadius: const BorderRadius.all(
-            Radius.circular(32),
+            Radius.circular(32.0),
           ),
         ),
         child: Stack(
@@ -63,7 +64,7 @@ class ImageCard extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Color(0xff232220),
-                    fontSize: 16,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -72,11 +73,11 @@ class ImageCard extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: CircleAvatar(
-                radius: sliderHeight / 2,
+                radius: sliderHeight / 2.0,
                 backgroundColor: Colors.white,
-                child: const Icon(
+                child: Icon(
                   Icons.chevron_right,
-                  color: Color(0xffA5957E),
+                  color: backgroundColor,
                 ),
               ),
             ),

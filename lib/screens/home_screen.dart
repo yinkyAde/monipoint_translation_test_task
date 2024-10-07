@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monipoint_translation_test_task/constants.dart';
 
 import '../widgets/buy_offers_ui.dart';
 import '../widgets/image_card.dart';
@@ -8,44 +9,43 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _animationController;
+class HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
 
-  // Animation for the appbar with entails the location and profile avatar
-  late final Animation<double> _appbarAnimation;
-  late final Animation<double> _appbarOpacity;
+  late final AnimationController animationController;
 
-  // Animation for the name
-  late final Animation<double> _nameOpacityAnimation;
 
-  late final Animation<double> _firstContentAnimation;
-  late final Animation<double> _secondContentAnimation;
+  late final Animation<double> appbarAnimation;
+  late final Animation<double> appbarOpacity;
 
-  late final Animation<double> _buyAndRentAnimation;
+  late final Animation<double> nameOpacityAnimation;
 
-  late final Animation<Offset> _slideAnimation;
+  late final Animation<double> firstTextAnimation;
+  late final Animation<double> secondTextAnimation;
 
-  late final Animation<double> _kitchenAnimation;
-  late final Animation<double> _windowAnimation;
+  late final Animation<double> buyAndRentAnimation;
 
-  late final Animation<double> _bottomImageAnimation;
+  late final Animation<Offset> animationSlider;
+
+  late final Animation<double> kitchenCardAnimation;
+  late final Animation<double> windowCardAnimation;
+
+  late final Animation<double> bottomImageAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
+    animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 6),
     );
 
-    _appbarAnimation = Tween<double>(begin: 0, end: 1).animate(
+    appbarAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.0,
           0.15,
@@ -54,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _appbarOpacity = Tween<double>(begin: 0, end: 1).animate(
+    appbarOpacity = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.13,
           0.15,
@@ -65,9 +65,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _nameOpacityAnimation = Tween<double>(begin: 0, end: 1).animate(
+    nameOpacityAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.15,
           0.18,
@@ -76,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _firstContentAnimation = Tween<double>(begin: 0, end: 1).animate(
+    firstTextAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.18,
           0.24,
@@ -87,9 +87,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _secondContentAnimation = Tween<double>(begin: 0, end: 1).animate(
+    secondTextAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.22,
           0.28,
@@ -98,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _buyAndRentAnimation = Tween<double>(begin: 0, end: 1).animate(
+    buyAndRentAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.18,
           0.32,
@@ -110,10 +110,10 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _slideAnimation =
+    animationSlider =
         Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.32,
           0.40,
@@ -122,9 +122,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _kitchenAnimation = Tween<double>(begin: 0, end: 1).animate(
+    kitchenCardAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.40,
           0.50,
@@ -133,9 +133,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _windowAnimation = Tween<double>(begin: 0, end: 1).animate(
+    windowCardAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.55,
           0.65,
@@ -144,9 +144,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
 
-    _bottomImageAnimation = Tween<double>(begin: 0, end: 1).animate(
+    bottomImageAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.55,
           0.75,
@@ -156,12 +156,12 @@ class _HomeScreenState extends State<HomeScreen>
     );
 
     // Start the animation
-    _animationController.forward();
+    animationController.forward();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    animationController.dispose();
 
     super.dispose();
   }
@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: AnimatedBuilder(
-        animation: _animationController,
+        animation: animationController,
         builder: (context, child) => Container(
           width: double.infinity,
           decoration: const BoxDecoration(
@@ -193,36 +193,36 @@ class _HomeScreenState extends State<HomeScreen>
                 centerTitle: false,
                 title: Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 16,
+                    vertical: defaultPadding - 6.0,
+                    horizontal: defaultPadding,
                   ),
-                  height: 56,
-                  width: _appbarAnimation.value * 196,
+                  height: defaultPadding * 3.5,
+                  width: appbarAnimation.value * 196,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+                      Radius.circular(10.0),
                     ),
                   ),
                   child: Opacity(
-                    opacity: _appbarOpacity.value,
-                    child: const Row(
+                    opacity: appbarOpacity.value,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.location_on,
-                          color: Color(0xffA5957E),
-                          size: 18,
+                          color: backgroundColor,
+                          size: 18.0,
                         ),
-                        SizedBox(
-                          width: 4,
+                        const SizedBox(
+                          width: 4.0,
                         ),
-                        Flexible(
+                        const Flexible(
                           child: Text(
                             "Saint Petersburg",
                             style: TextStyle(
                               color: Color(0xffA5957E),
-                              fontSize: 16,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),
@@ -232,14 +232,19 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
                 actions: [
                   Transform.scale(
-                    scale: _appbarAnimation.value,
+                    scale: appbarAnimation.value,
                     alignment: Alignment.center,
-                    child: const CircleAvatar(
-                      radius: 48,
-                      backgroundColor: Color(0xffFC9E12),
-                      backgroundImage: AssetImage('assets/images/profile.jpg'),
+                    child: CircleAvatar(
+                      radius: 48.0,
+                      backgroundColor: primaryColor,
+                      child: ClipOval(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: Image.asset('assets/images/passport.png', fit: BoxFit.cover),
+                        ),
                     ),
-                  ),
+                  ),),
                 ],
               ),
               SliverFillRemaining(
@@ -250,18 +255,18 @@ class _HomeScreenState extends State<HomeScreen>
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(
-                          height: 40,
+                          height: 40.0,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Opacity(
-                            opacity: _nameOpacityAnimation.value,
-                            child: const Text(
+                            opacity: nameOpacityAnimation.value,
+                            child: Text(
                               'Hi, Marina',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 24.0,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xffA5957E),
+                                color: backgroundColor,
                               ),
                             ),
                           ),
@@ -278,24 +283,24 @@ class _HomeScreenState extends State<HomeScreen>
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
-                                height: _firstContentAnimation.value * 48,
+                                height: firstTextAnimation.value * 48,
                                 color: Colors.transparent,
                                 child: const Text(
                                   "let's select your",
                                   style: TextStyle(
-                                    fontSize: 40,
+                                    fontSize: 40.0,
                                     color: Color(0xff232220),
                                     height: 1,
                                   ),
                                 ),
                               ),
                               Container(
-                                height: _secondContentAnimation.value * 48,
+                                height: secondTextAnimation.value * 48,
                                 color: Colors.transparent,
                                 child: const Text(
                                   "perfect place",
                                   style: TextStyle(
-                                    fontSize: 40,
+                                    fontSize: 40.0,
                                     color: Color(0xff232220),
                                     height: 1,
                                   ),
@@ -305,19 +310,19 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                         const SizedBox(
-                          height: 32,
+                          height: 32.0,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
                                 flex: 1,
                                 child: Transform.scale(
-                                  scale: _buyAndRentAnimation.value,
+                                  scale: buyAndRentAnimation.value,
                                   child: BuyOffersUi(
-                                    value: _buyAndRentAnimation.value * 1034,
+                                    value: buyAndRentAnimation.value * 1034,
                                   ),
                                 ),
                               ),
@@ -327,9 +332,9 @@ class _HomeScreenState extends State<HomeScreen>
                               Expanded(
                                 flex: 1,
                                 child: Transform.scale(
-                                  scale: _buyAndRentAnimation.value,
+                                  scale: buyAndRentAnimation.value,
                                   child: RentOffersUi(
-                                    value: _buyAndRentAnimation.value * 2212,
+                                    value: buyAndRentAnimation.value * 2212,
                                   ),
                                 ),
                               ),
@@ -337,18 +342,18 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                         const SizedBox(
-                          height: 32,
+                          height: defaultPadding * 2.0,
                         ),
                       ],
                     ),
                     Positioned.fill(
-                      left: 0,
-                      right: 0,
-                      top: 208,
+                      left: 0.0,
+                      right: 0.0,
+                      top: 208.0,
                       child: SlideTransition(
-                        position: _slideAnimation,
+                        position: animationSlider,
                         child: Container(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(defaultPadding / 8.0),
                           width: double.infinity,
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.vertical(
@@ -362,14 +367,14 @@ class _HomeScreenState extends State<HomeScreen>
                               ImageCard(
                                 assetPath: 'assets/images/kitchen.jpg',
                                 sliderText: "Gladkova St., 25",
-                                textOpacity: _kitchenAnimation.value == 1
-                                    ? _kitchenAnimation.value
+                                textOpacity: kitchenCardAnimation.value == 1
+                                    ? kitchenCardAnimation.value
                                     : 0,
                                 sliderTextAlignment: Alignment.center,
-                                sliderWidth: _kitchenAnimation.value *
+                                sliderWidth: kitchenCardAnimation.value *
                                     MediaQuery.of(context).size.width,
-                                sliderHeight: 56,
-                                height: 208,
+                                sliderHeight: 56.0,
+                                height: 208.0,
                               ),
 
                               const SizedBox(
@@ -386,10 +391,10 @@ class _HomeScreenState extends State<HomeScreen>
                                             'assets/images/chair_on_rug.jpg',
                                         sliderText: "Gubina St., 11",
                                         textOpacity:
-                                            _bottomImageAnimation.value == 1
-                                                ? _bottomImageAnimation.value
+                                            bottomImageAnimation.value == 1
+                                                ? bottomImageAnimation.value
                                                 : 0,
-                                        sliderWidth: _bottomImageAnimation
+                                        sliderWidth: bottomImageAnimation
                                                 .value *
                                             MediaQuery.of(context).size.width,
                                       ),
@@ -407,11 +412,11 @@ class _HomeScreenState extends State<HomeScreen>
                                                   'assets/images/window.jpg',
                                               sliderText: "Trefoleva St., 43",
                                               textOpacity:
-                                                  _windowAnimation.value == 1
-                                                      ? _windowAnimation.value
+                                                  windowCardAnimation.value == 1
+                                                      ? windowCardAnimation.value
                                                       : 0,
                                               sliderWidth:
-                                                  _windowAnimation.value *
+                                                  windowCardAnimation.value *
                                                       MediaQuery.of(context)
                                                           .size
                                                           .width,
@@ -423,15 +428,15 @@ class _HomeScreenState extends State<HomeScreen>
                                           Expanded(
                                             child: ImageCard(
                                               assetPath:
-                                                  'assets/images/sitting_room.jpg',
+                                                  'assets/images/living_room.jpg',
                                               sliderText: "Sedova St., 22",
-                                              textOpacity: _bottomImageAnimation
+                                              textOpacity: bottomImageAnimation
                                                           .value ==
                                                       1
-                                                  ? _bottomImageAnimation.value
+                                                  ? bottomImageAnimation.value
                                                   : 0,
                                               sliderWidth:
-                                                  _bottomImageAnimation.value *
+                                                  bottomImageAnimation.value *
                                                       MediaQuery.of(context)
                                                           .size
                                                           .width,

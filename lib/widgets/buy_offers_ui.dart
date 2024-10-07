@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:monipoint_translation_test_task/constants.dart';
 
-import '../number_util.dart';
+import '../utils/number_util.dart';
+
 
 class BuyOffersUi extends StatelessWidget {
   const BuyOffersUi({
@@ -14,46 +16,45 @@ class BuyOffersUi extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        left: 16,
-        top: 16,
-        right: 16,
-        bottom: 48,
+        left: defaultPadding,
+        top: defaultPadding,
+        right: defaultPadding,
+        bottom: defaultPadding * 3,
       ),
       width: double.infinity,
-      // height: 144,
-      decoration: const BoxDecoration(
-        color: Color(0xffFC9E12),
+      decoration: BoxDecoration(
+        color: primaryColor,
         shape: BoxShape.circle,
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             "BUY",
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Colors.white,
-              fontSize: 16,
+              color: whiteColor,
+              fontSize: defaultPadding,
             ),
           ),
           const SizedBox(
-            height: 24,
+            height: defaultPadding + 8.0,
           ),
           Text(
-            NumberUtil.addSpaceTo4DigitNumber(value.toInt()),
-            style: const TextStyle(
+            NumberUtil.numberFormatter(value.toInt()),
+            style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: whiteColor,
               fontSize: 40,
             ),
           ),
           const SizedBox(
-            height: 2,
+            height: (defaultPadding/4.0) - 2.0,
           ),
-          const Text(
+          Text(
             "offers",
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: Colors.white,
+              color: whiteColor,
               fontSize: 16,
             ),
           ),
