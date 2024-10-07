@@ -1,7 +1,7 @@
 # monipoint_translation_test_task
 
 ## Android Version
-- [Download and Install the Application]([https://github.com/unknownaloy/moniepoint_task_01/raw/main/apk/moniepoint_ellis.apk])
+- [Download and Install the Application]([https://github.com/unknownaloy/moniepoint_task_01/raw/main/apk/moniepoint_ellis.apk)
 
 A new Flutter project.
 
