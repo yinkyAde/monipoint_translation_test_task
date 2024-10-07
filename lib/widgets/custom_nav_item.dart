@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monipoint_translation_test_task/constants.dart';
 
 class CustomNavItem extends StatefulWidget {
   const CustomNavItem({
@@ -13,52 +14,52 @@ class CustomNavItem extends StatefulWidget {
   final VoidCallback onTap;
 
   @override
-  State<CustomNavItem> createState() => _CustomNavItemState();
+  State<CustomNavItem> createState() => CustomNavItemState();
 }
 
-class _CustomNavItemState extends State<CustomNavItem>
-    with TickerProviderStateMixin {
-  late final AnimationController _animationController;
+class CustomNavItemState extends State<CustomNavItem> with TickerProviderStateMixin {
 
-  late final Animation<double> _initialContainerSize;
-  late final Animation<double> _initialBorderSize;
+  late final AnimationController animationController;
 
-  late final Animation<double> _secondContainerSize;
-  late final Animation<double> _secondBorderSize;
+  late final Animation<double> initialContainerSize;
+  late final Animation<double> initialBorderSize;
 
-  bool _showColor = false;
-  bool _showOuterCircle = false;
+  late final Animation<double> secondContainerSize;
+  late final Animation<double> secondBorderSize;
+
+  bool showColor = false;
+  bool showOuterCircle = false;
 
   @override
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
+    animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     )..addStatusListener((status) {
         if (status == AnimationStatus.forward) {
           setState(() {
-            _showColor = true;
+            showColor = true;
 
             Future.delayed(const Duration(milliseconds: 375), () {
-              _showOuterCircle = true;
+              showOuterCircle = true;
             });
 
             Future.delayed(const Duration(milliseconds: 900), () {
-              _showOuterCircle = false;
+              showOuterCircle = false;
             });
 
             Future.delayed(const Duration(milliseconds: 1125), () {
-              _showColor = false;
+              showColor = false;
             });
           });
         }
       });
 
-    _initialContainerSize = Tween<double>(begin: 58, end: 40).animate(
+    initialContainerSize = Tween<double>(begin: 58, end: 40).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.0,
           0.25,
@@ -67,7 +68,7 @@ class _CustomNavItemState extends State<CustomNavItem>
       ),
     );
 
-    _initialBorderSize = TweenSequence(<TweenSequenceItem<double>>[
+    initialBorderSize = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem<double>(
         tween: Tween<double>(begin: 1, end: 8),
         weight: 50,
@@ -78,14 +79,14 @@ class _CustomNavItemState extends State<CustomNavItem>
       ),
     ]).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(0.0, 0.75, curve: Curves.easeIn),
       ),
     );
 
-    _secondContainerSize = Tween<double>(begin: 40, end: 58).animate(
+    secondContainerSize = Tween<double>(begin: 40, end: 58).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.25,
           0.50,
@@ -94,9 +95,9 @@ class _CustomNavItemState extends State<CustomNavItem>
       ),
     );
 
-    _secondBorderSize = Tween<double>(begin: 8, end: 0).animate(
+    secondBorderSize = Tween<double>(begin: 8, end: 0).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: animationController,
         curve: const Interval(
           0.25,
           0.50,
@@ -108,7 +109,7 @@ class _CustomNavItemState extends State<CustomNavItem>
 
   @override
   void dispose() {
-    _animationController.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -117,12 +118,12 @@ class _CustomNavItemState extends State<CustomNavItem>
     return GestureDetector(
       onTap: () async {
         widget.onTap();
-        _animationController
+        animationController
           ..reset()
           ..forward();
       },
       child: AnimatedBuilder(
-        animation: _animationController,
+        animation: animationController,
         builder: (context, child) => Stack(
           alignment: Alignment.center,
           children: [
@@ -130,57 +131,57 @@ class _CustomNavItemState extends State<CustomNavItem>
               duration: const Duration(milliseconds: 375),
               curve: Curves.decelerate,
               alignment: Alignment.center,
-              height: _showColor
-                  ? 40
+              height: showColor
+                  ? 40.0
                   : widget.isActive
-                      ? 52
-                      : 40,
-              width: _showColor
-                  ? 40
+                      ? 52.0
+                      : 40.0,
+              width: showColor
+                  ? 40.0
                   : widget.isActive
-                      ? 52
-                      : 40,
+                      ? 52.0
+                      : 40.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _showColor
+                color: showColor
                     ? Colors.transparent
                     : widget.isActive
-                        ? const Color(0xffFC9E12)
-                        : const Color(0xff232220),
+                        ? primaryColor
+                        : greyColor,
               ),
               child: Icon(
                 widget.icon,
-                color: Colors.white,
+                color: whiteColor,
               ),
             ),
             widget.isActive
                 ? Container(
-                    padding: const EdgeInsets.all(2),
-                    height: _initialContainerSize.value,
-                    width: _initialContainerSize.value,
+                    padding: const EdgeInsets.all(2.0),
+                    height: initialContainerSize.value,
+                    width: initialContainerSize.value,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: _showColor ? Colors.white : Colors.transparent,
-                        width: _initialBorderSize.value,
+                        color: showColor ? whiteColor : Colors.transparent,
+                        width: initialBorderSize.value,
                       ),
                     ),
                   )
                 : const SizedBox.shrink(),
             widget.isActive
                 ? Container(
-                    padding: const EdgeInsets.all(2),
-                    height: _secondContainerSize.value,
-                    width: _secondContainerSize.value,
+                    padding: const EdgeInsets.all(2.0),
+                    height: secondContainerSize.value,
+                    width: secondContainerSize.value,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color: _showOuterCircle
-                            ? Colors.white
+                        color: showOuterCircle
+                            ? whiteColor
                             : Colors.transparent,
-                        width: _secondBorderSize.value,
+                        width: secondBorderSize.value,
                       ),
                     ),
                   )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monipoint_translation_test_task/constants.dart';
 
 class MapBubble extends StatelessWidget {
   const MapBubble({
@@ -20,31 +21,31 @@ class MapBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10.0),
       width: bubbleWidth,
-      height: 48,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-          bottomRight: Radius.circular(16),
+      height: 48.0,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(defaultPadding),
+          topRight: Radius.circular(defaultPadding),
+          bottomRight: Radius.circular(defaultPadding),
         ),
-        color: Color(0xffFC9E12),
+        color: primaryColor,
       ),
       child: showWithoutAnyLayer
           ? Opacity(
               opacity: iconOpacity,
-              child: const Icon(
+              child: Icon(
                 Icons.apartment_outlined,
-                color: Colors.white,
+                color: whiteColor,
               ),
             )
           : Opacity(
               opacity: textOpacity,
               child: Text(
                 mapValue,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: whiteColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
